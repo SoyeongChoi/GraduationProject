@@ -17,8 +17,8 @@ train_images = np.reshape(train_images, [-1, 28, 28, 1])
 test_images = np.reshape(test_images, [-1, 28, 28, 1])
 
 #test_소영
-#test2
-
+#Test3
+#Test4
 open("./model.tflite", "wb").write(tflite_model)
 
 # load TFLite file
