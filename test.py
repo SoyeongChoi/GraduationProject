@@ -5,8 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+# from adabound import AdaBound
+
 # os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"]="2"
+
 
 class SSDLoss:
     '''
@@ -439,12 +442,14 @@ with train_graph.as_default():
     tf.contrib.quantize.create_training_graph(input_graph=train_graph, quant_delay=100)
     train_sess.run(tf.global_variables_initializer())
 
-    sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, decay=0.0, nesterov=False)
+    # sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, decay=0.0, nesterov=False)
 
     ssd_loss = SSDLoss(neg_pos_ratio=3, alpha=1.0)
 
+    # adaBound = AdaBound(lr=1e-03, final_lr=0.1, gamma=1e-03, weight_decay=0.0, amsbound=False)
+
     train_model.compile(
-        optimizer=sgd,
+        optimizer='adam',
         # loss='sparse_categorical_crossentropy',
         loss=ssd_loss.compute_loss,
         metrics=['accuracy']
