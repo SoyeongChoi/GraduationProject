@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 # os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"]="2"
 
-
 class SSDLoss:
     '''
     The SSD loss, see https://arxiv.org/abs/1512.02325.
