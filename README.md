@@ -10,3 +10,10 @@
 
 
 
+## GIT HUB 사용하기
+#### Git Hub은 Develop 에서 진행한다.
+#### Git Branch : Develop/상위폴더/구현기능(최대한 간결하게)
+
+#### Commit : commit은 제목과 내용으로 이루어져있다.
+              제목 : [고친파일 명] 구현기능(branch와 같거나 살짝 길게)
+              내용 : 자유롭게
