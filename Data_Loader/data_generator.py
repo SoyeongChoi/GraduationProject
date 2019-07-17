@@ -1,29 +1,64 @@
 import numpy as np
 from PIL import Image
 import os
+import pandas as pd
 
 
 
+# class DataGenerator(self, selection = [0,1,2,3,6], batch_):
 # We Using AffectNet DataSet
 data_path = os.path.join('../', 'data', 'Manually_Annotated')
 
-i = 0
-
+# Expression List
 expression_list = ['Neutral', 'Happy', 'Sad', 'Surprise', 'Fear', 'Disgust', 'Anger', 'Contempt', 'None', 'Uncertain',
                    ' Non-face']
 
-expression_size = [80276, 146198, 29487, 16288, 8191, 5264, 28130, 5135, 35322, 13163, 88895]
+# Manually Annotated Expression Size
+expression_size = [75374, 134915, 25959, 14590, 6878, 4303, 25382, 4250, 33588, 12145, 82915]
 ## netural, happy, sad, surprise, anger
-## 0, 1, 2, 3, 6 [label min size = 16288 (Surprise)/ label max size = 146198(Happy)]
+## 0, 1, 2, 3, 6 [label min size = 14590 (Surprise)/ label max size = 134915(Happy)]
 
 # emotion select
 selection = [0,1,2,3,6]
 
-#
+# get selections min for same size data(label)
 selection_size_list = [expression_size[x] for x in selection]
-print(selection_size_list)
-print(min(selection_size_list))
+min_size = min(selection_size_list)
 
+##
+trainset = pd.read_csv(os.path.join(data_path, "training.csv"))
+
+colnames = ['subDirectory_filePath', 'face_x', 'face_y', 'face_width', 'face_height', 'facial_landmarks',
+            'expression', 'valence', 'arousal' ]
+
+testset = pd.read_csv(os.path.join(path, "validation.csv"), names=colnames)
+
+
+# remove 1. 'facial_landmarks' 2. 'valence' 3. 'arousal'
+# trainset.drop(['facial_landmarks', 'valence', 'arousal'],axis =1)
+# testset.drop(['facial_landmarks', 'valence', 'arousal'],axis =1)
+
+# only selected emotions remain
+trainset = dataset[(dataset['expression'].isin(selection))]
+testset = testset[(dataset['expression'].isin(selection))]
+
+
+trainset_index = dataset.reset_index().columns[0, 'expression']
+testset_index = testset.reset_index().columns[0, 'expression']
+
+# n * m min_size
+train_data = np.zeros(len(selection) * min_size)
+test_data = (testset_index.columns[0]).values
+
+
+# random sampling for train
+for i in selection:
+    # 이게 random sampling index
+    train_data[i*min_size] = ((dataset_index[dataset_index['expression'] == i].sample(n= min_size, random_stata=1)).columns[0]).values
+
+
+print(dataset_index)
+# remove
 
 # Todo : 1. minsize로 데이터를 자르고 ,
 
