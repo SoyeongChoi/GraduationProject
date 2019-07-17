@@ -5,6 +5,7 @@ from keras.engine.topology import InputSpec
 from keras.engine.topology import Layer
 import numpy as np
 import tensorflow as tf
+
 class Normalize(Layer):
     """Normalization layer as described in ParseNet paper.
     # Arguments
@@ -40,6 +41,7 @@ class Normalize(Layer):
         output = K.l2_normalize(x, self.axis)
         output *= self.gamma
         return output
+
 
 
 class PriorBox(Layer):
