@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from keras.regularizers import l2
 import keras.utils
+import PriorBox
 
 
 # from adabound import AdaBound
@@ -476,6 +477,18 @@ def build_keras_model():
 
     # TODO
     # AnchorBox   --> PriorBox ?? // CHECK !!
+
+    conv4_priorbox = PriorBox.PriorBox((300, 300), 222.0, max_size=276.0, aspect_ratios=[2, 3],
+                                       variances=[0.1, 0.1, 0.2, 0.2])(conv4)
+    fc7_priorbox = PriorBox.PriorBox((300, 300), 222.0, max_size=276.0, aspect_ratios=[2, 3],
+                                     variances=[0.1, 0.1, 0.2, 0.2])(fc7)
+    conv8_2_priorbox = PriorBox.PriorBox((300, 300), 222.0, max_size=276.0, aspect_ratios=[2, 3],
+                                         variances=[0.1, 0.1, 0.2, 0.2])(conv8_2)
+    conv9_2_priorbox = PriorBox.PriorBox((300, 300), 222.0, max_size=276.0, aspect_ratios=[2, 3],
+                                         variances=[0.1, 0.1, 0.2, 0.2])(conv9_2)
+    conv10_2_priorbox = PriorBox.PriorBox((300, 300), 222.0, max_size=276.0, aspect_ratios=[2, 3],
+                                          variances=[0.1, 0.1, 0.2, 0.2])(conv10_2)
+
 
     # TODO
     # Reshape
