@@ -470,10 +470,12 @@ def build_keras_model():
                                                 kernel_regularizer=l2(l2_reg), name='conv10_2_mbox_conf')(conv10_2)
     # conv10_2_mbox_conf_flat = Flatten()(conv10_2_mbox_conf)
 
+    # priorbox_pool_6_temp = PriorBox((300,300), 276.0, max_size=330.0, aspect_ratios=[2, 3],variances=[0.1, 0.1, 0.2, 0.2])
+
     ######
 
     # TODO
-    # AnchorBox
+    # AnchorBox   --> PriorBox ?? // CHECK !!
 
     # TODO
     # Reshape
