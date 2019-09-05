@@ -51,22 +51,3 @@
 		* Commit 제목과 내용 사이에는 공백 한줄 추가
 
 
-## Temporary Code 설명 ##
-:
-create_prior_box.py : ssd 학습을 위한 전처리와, 예측한 후처리에 사용하기 위한를 prior_box를 미리 생성
--> new_ssd_300.pkl : prior_box의 정보가 저장된 파일
-
-create_prior_box2.py : ssd 학습을 위한 전처리와, 예측한 후처리에 사용하기 위한를 prior_box를 미리 생성(aspect ratio를 2.0 => 1.5 / 3.0 => 2.0로 변경)
--> new_ssd2_300.pkl : aspect ratio가 변경된 prior_box의 정보가 저장된 파일
-
-get_data_from_XML.py : face_data에 대한 정보를 xml로 부터 읽어와서 p파일(dictionary 구조)로 저장.
--> face_data.p 
-
-train.py : 모델을 train 하여 graph를 생성하는 코드. (+ model, quantization 포함)
-test.py : weight를 불러와 test하는 코드.
-
-SSDLoss_new.py : SSD 학습을 위한 Loss Function
-
-ssd_utils.py : SSD 학습을 위한 y_true 생성(전처리), detection 후 화면에 표시하기 위한 형태의 데이터를 생성(후처리)
-
-generate_tfrecord.py : ssd의 postprocessing을 위해 tfrecord 파일을 생성하는 코드
