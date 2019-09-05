@@ -6,10 +6,10 @@ import tensorflow as tf
 from keras import callbacks
 from tensorflow import keras
 
-import SSDLoss_new as SSDLoss
-from Generator import Generator
-from Net.SSD import SSD
-from ssd_utils import BBoxUtility
+from data.generator import Generator
+from net import loss as SSDLoss
+from net.ssd import SSD
+from utils.ssd_utils import BBoxUtility
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "3"
