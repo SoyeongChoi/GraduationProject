@@ -17,6 +17,22 @@ box_configs = [
     {'layer_width':  1, 'layer_height':  1, 'num_prior': 6, 'min_size': 270.0,
      'max_size': 285.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1/2.0, 3.0, 1/3.0]},
 ]
+
+box_configs2 = [
+    {'layer_width': 19, 'layer_height': 19, 'num_prior': 3, 'min_size':  60.0,
+     'max_size': None, 'aspect_ratios': [1.0, 1.5, 1/1.5]},
+    {'layer_width': 10, 'layer_height': 10, 'num_prior': 6, 'min_size':  101.5,
+     'max_size': 144.0, 'aspect_ratios': [1.0, 1.0, 1.5, 1/1.5, 2.0, 1/2.0]},
+    {'layer_width': 5, 'layer_height': 5, 'num_prior': 6, 'min_size': 144.0,
+     'max_size': 186.0, 'aspect_ratios': [1.0, 1.0, 1.5, 1/1.5, 2.0, 1/2.0]},
+    {'layer_width':  3, 'layer_height':  3, 'num_prior': 6, 'min_size': 186.0,
+     'max_size': 228.0, 'aspect_ratios': [1.0, 1.0, 1.5, 1/1.5, 2.0, 1/2.0]},
+    {'layer_width':  2, 'layer_height':  2, 'num_prior': 6, 'min_size': 228.0,
+     'max_size': 270.0, 'aspect_ratios': [1.0, 1.0, 1.5, 1/1.5, 2.0, 1/2.0]},
+    {'layer_width':  1, 'layer_height':  1, 'num_prior': 6, 'min_size': 270.0,
+     'max_size': 285.0, 'aspect_ratios': [1.0, 1.0, 1.5, 1/1.5, 2.0, 1/2.0]},
+]
+
 variance = [0.1, 0.1, 0.2, 0.2]
 boxes_paras = []
 
