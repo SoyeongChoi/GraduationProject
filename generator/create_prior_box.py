@@ -1,24 +1,25 @@
 import pickle
+
 import numpy as np
-import pdb
 
 img_width, img_height = 300, 300
 box_configs = [
-    {'layer_width': 19, 'layer_height': 19, 'num_prior': 3, 'min_size':  60.0,
-     'max_size': None, 'aspect_ratios': [1.0, 2.0, 1/2.0]},
-    {'layer_width': 10, 'layer_height': 10, 'num_prior': 6, 'min_size':  102.0,
-     'max_size': 144.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1/2.0, 3.0, 1/3.0]},
+    {'layer_width': 19, 'layer_height': 19, 'num_prior': 3, 'min_size': 60.0,
+     'max_size': None, 'aspect_ratios': [1.0, 2.0, 1 / 2.0]},
+    {'layer_width': 10, 'layer_height': 10, 'num_prior': 6, 'min_size': 102.0,
+     'max_size': 144.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1 / 2.0, 3.0, 1 / 3.0]},
     {'layer_width': 5, 'layer_height': 5, 'num_prior': 6, 'min_size': 144.0,
-     'max_size': 186.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1/2.0, 3.0, 1/3.0]},
-    {'layer_width':  3, 'layer_height':  3, 'num_prior': 6, 'min_size': 186.0,
-     'max_size': 228.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1/2.0, 3.0, 1/3.0]},
-    {'layer_width':  2, 'layer_height':  2, 'num_prior': 6, 'min_size': 228.0,
-     'max_size': 270.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1/2.0, 3.0, 1/3.0]},
-    {'layer_width':  1, 'layer_height':  1, 'num_prior': 6, 'min_size': 270.0,
-     'max_size': 285.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1/2.0, 3.0, 1/3.0]},
+     'max_size': 186.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1 / 2.0, 3.0, 1 / 3.0]},
+    {'layer_width': 3, 'layer_height': 3, 'num_prior': 6, 'min_size': 186.0,
+     'max_size': 228.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1 / 2.0, 3.0, 1 / 3.0]},
+    {'layer_width': 2, 'layer_height': 2, 'num_prior': 6, 'min_size': 228.0,
+     'max_size': 270.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1 / 2.0, 3.0, 1 / 3.0]},
+    {'layer_width': 1, 'layer_height': 1, 'num_prior': 6, 'min_size': 270.0,
+     'max_size': 285.0, 'aspect_ratios': [1.0, 1.0, 2.0, 1 / 2.0, 3.0, 1 / 3.0]},
 ]
 variance = [0.1, 0.1, 0.2, 0.2]
 boxes_paras = []
+
 
 def create_prior_box():
     for layer_config in box_configs:
@@ -33,19 +34,16 @@ def create_prior_box():
 
         linx = np.linspace(0.5 * step_x, img_width - 0.5 * step_x, layer_width)
         liny = np.linspace(0.5 * step_y, img_height - 0.5 * step_y, layer_height)
-       
-        
+
         centers_x, centers_y = np.meshgrid(linx, liny)
         centers_x = centers_x.reshape(-1, 1)
         centers_y = centers_y.reshape(-1, 1)
-        
 
-        assert(num_priors == len(aspect_ratios))
-       
+        assert (num_priors == len(aspect_ratios))
+
         prior_boxes = np.concatenate((centers_x, centers_y), axis=1)
         prior_boxes = np.tile(prior_boxes, (1, 2 * num_priors))
-        
-        
+
         box_widths = []
         box_heights = []
         for ar in aspect_ratios:
@@ -71,32 +69,17 @@ def create_prior_box():
         prior_boxes = prior_boxes.reshape(-1, 4)
         # clip to 0-1
         prior_boxes = np.minimum(np.maximum(prior_boxes, 0.0), 1.0)
-        ##
-        # piror_variances = np.tile(variance, (len(prior_boxes),1))
-        # boxes_para = np.concatenate((prior_boxes, piror_variances), axis=1)
-        # boxes_paras.append(boxes_para)
-        
-        
+
         boxes_paras.append(prior_boxes)
-        
+
     return np.concatenate(boxes_paras, axis=0)
 
 
 if __name__ == "__main__":
     boxes_paras = create_prior_box()
-    
+
     with open('new_ssd_300.pkl', 'wb') as handle:
         pickle.dump(boxes_paras, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
+
     with open('new_ssd_300.pkl', 'rb') as handle:
         b = pickle.load(handle)
-        
-        
-  #  priors = pickle.load(open('./prior_boxes_ssd300.pkl', 'rb'))
-   # diff = boxes_paras - priors
-    # pdb.set_trace()
-   # print("simi {}, max value {}, min value {}".format(diff.shape, diff.max(), diff.min()))
-    #priors = pickle.load(open('../Datasets/ExtraData/prior_boxes_ssd300.pkl', 'rb'))
-    #diff = boxes_paras - priors
-    # pdb.set_trace()
-    #print("simi {}, max value {}, min value {}".format(diff.shape, diff.max(), diff.min()))

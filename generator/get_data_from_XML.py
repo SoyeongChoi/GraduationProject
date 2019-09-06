@@ -1,6 +1,8 @@
 import numpy as np
 import os
+import pickle
 from xml.etree import ElementTree
+
 
 class XML_preprocessor(object):
 
@@ -20,21 +22,20 @@ class XML_preprocessor(object):
             size_tree = root.find('size')
             width = float(size_tree.find('width').text)
             height = float(size_tree.find('height').text)
-            
-            if width == 0 or height ==0 :
+
+            if width == 0 or height == 0:
                 print(filename)
                 continue
-            
+
             for object_tree in root.findall('object'):
                 for bounding_box in object_tree.iter('bndbox'):
-                    xmin = float(bounding_box.find('xmin').text)/width
-                    ymin = float(bounding_box.find('ymin').text)/height
-                    xmax = float(bounding_box.find('xmax').text)/width
-                    ymax = float(bounding_box.find('ymax').text)/height
-                bounding_box = [xmin,ymin,xmax,ymax]
+                    xmin = float(bounding_box.find('xmin').text) / width
+                    ymin = float(bounding_box.find('ymin').text) / height
+                    xmax = float(bounding_box.find('xmax').text) / width
+                    ymax = float(bounding_box.find('ymax').text) / height
+                bounding_box = [xmin, ymin, xmax, ymax]
                 bounding_boxes.append(bounding_box)
                 class_name = object_tree.find('name').text
-
 
                 if class_name == 'nueral':
                     print(filename)
@@ -47,9 +48,9 @@ class XML_preprocessor(object):
             image_data = np.hstack((bounding_boxes, one_hot_classes))
             self.data[image_name] = image_data
 
-    def _to_one_hot(self,name):
+    def _to_one_hot(self, name):
         one_hot_vector = [0] * self.num_classes
-        if name == 'neural' or name =='nueral':
+        if name == 'neural' or name == 'nueral':
             one_hot_vector[0] = 1
         elif name == 'smile':
             one_hot_vector[1] = 1
@@ -60,12 +61,12 @@ class XML_preprocessor(object):
         elif name == 'sad':
             one_hot_vector[4] = 1
         else:
-            print('unknown label: %s' %name)
+            print('unknown label: %s' % name)
 
         return one_hot_vector
 
-## example on how to use it
-import pickle
-data = XML_preprocessor('./dataset/annotations/').data
-pickle.dump(data,open('face_data.p','wb'))
 
+## example on how to use it
+
+data = XML_preprocessor('./dataset/annotations/').data
+pickle.dump(data, open('face_data.p', 'wb'))

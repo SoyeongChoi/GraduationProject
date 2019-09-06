@@ -88,18 +88,10 @@ from google.protobuf import text_format
 from object_detection import export_tflite_ssd_graph
 from object_detection.protos import pipeline_pb2
 
-
-
 export_tflite = export_tflite_ssd_graph
 # export_tflite.pipline_config_path='./ssd.config'
 # export_tflite.trained_checkpoint_prefix='./checpoints'
 # export_tflite.output_directory='./tmp'
 # export_tflite.add_postprocessing_op=True
-export_tflite.main(pipeline_config_path='./ssd.config', trained_checkpoint_prefix='./checpoints',output_directory='./tmp',add_postprocessing_op=True)
-
-
-
-
-
-
-
+export_tflite.main(pipeline_config_path='./ssd.config', trained_checkpoint_prefix='./checpoints',
+                   output_directory='./tmp', add_postprocessing_op=True)
