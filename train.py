@@ -2,14 +2,13 @@ import os
 import pickle
 
 import tensorflow as tf
-from keras.callbacks import CSVLogger, ModelCheckpoint, ReduceLROnPlateau
+from tensorflow.keras.callbacks import CSVLogger, ModelCheckpoint, ReduceLROnPlateau
 from tensorflow import keras
 
 import model.ssd as ssdmodel
 import training.loss_function as ssdloss
 from generator.generator import Generator as genertor
 from util.ssd_utils import BBoxUtility as bboxutility
-from model.ssd import SSD
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "3"
@@ -52,8 +51,8 @@ with train_graph.as_default():
 
     # generate dataset using 'gt', 'prior_box', 'BBoxUtility'
     gen = genertor(gt, bbox_util, 16, path_prefix,
-                    train_keys, val_keys,
-                    (input_shape[0], input_shape[1]), do_crop=False)
+                   train_keys, val_keys,
+                   (input_shape[0], input_shape[1]), do_crop=False)
 
     train_model.compile(
         optimizer=keras.optimizers.Adam(lr=0.0001),
@@ -71,11 +70,14 @@ with train_graph.as_default():
 
     csv_logger = CSVLogger(filename='Face_new_box_training_log.csv', separator=',', append=True)
 
-    callbacks = [model_chekpount, reduce_lr, csv_logger]
+    callbacks = [model_chekpoint, reduce_lr, csv_logger]
 
     # load weight                                         
     # train_model.load_weights('./save_weight/testing_weights_test.59-8.68.h5')
 
+
+    print(train_model.summary())
+    
     # start training                                        
     history = train_model.fit_generator(gen.generate(True), gen.train_batches,
                                         nb_epoch, verbose=1,
@@ -98,7 +100,10 @@ with eval_graph.as_default():
     keras.backend.set_learning_phase(0)
     NUM_CLASSES = len(classes) + 1
     input_shape = (300, 300, 3)
-    eval_model = SSD.make_model(input_shape, num_classes=NUM_CLASSES)
+
+
+    eval_model = model.make_model()
+
 
     tf.contrib.quantize.create_eval_graph(input_graph=eval_graph)
     eval_graph_def = eval_graph.as_graph_def()
