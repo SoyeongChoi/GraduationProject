@@ -62,7 +62,7 @@ with train_graph.as_default():
     nb_epoch = 100
 
     # callbacks
-    model_chekpoint = ModelCheckpoint('./save_weight/testing_weights_test.{epoch:02d}-{val_loss:.2f}.h5',
+    model_chekpount = ModelCheckpoint('./save_weight/testing_weights_test.{epoch:02d}-{val_loss:.2f}.h5',
                                       verbose=1,
                                       save_weights_only=True)
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
@@ -75,7 +75,9 @@ with train_graph.as_default():
     # load weight                                         
     # train_model.load_weights('./save_weight/testing_weights_test.59-8.68.h5')
 
+
     print(train_model.summary())
+    
     # start training                                        
     history = train_model.fit_generator(gen.generate(True), gen.train_batches,
                                         nb_epoch, verbose=1,
@@ -99,7 +101,9 @@ with eval_graph.as_default():
     NUM_CLASSES = len(classes) + 1
     input_shape = (300, 300, 3)
 
+
     eval_model = model.make_model()
+
 
     tf.contrib.quantize.create_eval_graph(input_graph=eval_graph)
     eval_graph_def = eval_graph.as_graph_def()

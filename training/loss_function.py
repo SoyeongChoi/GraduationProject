@@ -15,7 +15,6 @@ from __future__ import division
 
 import tensorflow as tf
 
-
 class SSDLoss:
     '''
     The SSD loss, see https://arxiv.org/abs/1512.02325.
