@@ -15,25 +15,27 @@
 
 ### 저장소 구조 :
 ```
-├──  base
-│   ├── base_model.py   - this file contains the abstract class of the model.
-│   └── base_train.py   - this file contains the abstract class of the trainer.
+├──  generator
+│   ├── create_prior_box.py  		- this file creates prior box
+│   ├── generator.py   			- this file generates data.
+│   └── get_data_from_XML.py   		- this file gets data from XML 
 │
-├── model               - this folder contains any model of your project.
-│   └── example_model.py
+├── model               		- this folder contains model of this project.
+│   ├── mobilenet.py			- this file is mobilenet v1 architecture.
+│   └── ssd.py				- this file is SSD architecture.
 │
-├── trainer             - this folder contains trainers of your project.
-│   └── example_trainer.py
+├── training             		- this folder contains the file required for training.
+│   └── loss_function.py
 │
-├── mains              - here's the main(s) of your project (you may need more than one main).
-│   └── example_main.py  - here's an example of main that is responsible for the whole pipeline.
+├── utils       
+│	├── export_tflite_ssd_graph.py  - this file exports tflite_ssd_graph
+│	├── generate_tfrecord.py 	- this file generates tfrecord.
+│	├── opt.py	 
+│	└── ssd_utils.py		- this file contains the thing requried for SSD
 │
-├── data _loader
-│   └── data_generator.py  - here's the data_generator that is responsible for all data handling.
+├── test.py				- this file that tests the generated model.
 │
-└── utils
-	├── logger.py
-	└── any_other_utils_you_need
+└── training.py				- this file to train the model.
 
 ```
 
