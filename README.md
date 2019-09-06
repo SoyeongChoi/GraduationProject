@@ -44,8 +44,10 @@
 		Develop/상위폴더/구현기능(최대한 간결하게)
 		ex) Develop/Model/loss구현
 #### Commit : commit은 제목과 내용으로 이루어져있다.
-		제목 : [고친파일 명] 구현기능(branch와 같거나 살짝 길게)
+		제목 : 영문 커밋
 		내용 : 자유롭게
-		ex) [train]loss 구현
-			ssd loss function을 오픈소스를 이용해 구현함
+		ex) fix A in B
+		
+			B에 있는 A를 수정
 		* Commit 제목과 내용 사이에는 공백 한줄 추가
+		reference : https://blog.ull.im/engineering/2019/03/10/logs-on-git.html
